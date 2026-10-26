@@ -1,0 +1,13 @@
+scrape_configs:
+  # Job cào dữ liệu từ ứng dụng Spring Boot Backend
+  - job_name: 'backend'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8080']
+
+  # Job cào dữ liệu sức khỏe hệ điều hành VPS từ Node Exporter
+  - job_name: 'node'
+    scrape_interval: 15s
+    static_configs:
+      # Do chạy cùng mạng Docker (quickbite-net), sử dụng trực tiếp Service Name / Container Name
+      - targets: ['node-exporter:9100']
